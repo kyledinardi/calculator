@@ -1,0 +1,15 @@
+
+function clear(){
+    num1 = 0;
+}
+
+let num1;
+let num2;
+let op;
+const display = document.querySelector('p');
+const clear = document.querySelector('.clear');
+const backspace = document.querySelector('.backspace');
+const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator');
+const decimal = document.querySelector('.decimal');
+const equals = document.querySelector('.equals');
