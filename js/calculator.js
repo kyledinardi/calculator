@@ -79,8 +79,10 @@ operatorbtns.forEach(operatorbtn => {
         if(num2 !== undefined){
             num1 = operate(num1, num2, op);
             display.textContent = num1;
+            num2 = undefined;
         }
         op = e.target.textContent;
+        equalsPressed = false;
     });
 });
 
@@ -89,5 +91,6 @@ equalsbtn.addEventListener('click', () => {
         num1 = operate(num1, num2, op);
         display.textContent = num1;
         equalsPressed = true;
+        num2 = undefined;
     }
 });
