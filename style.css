@@ -14,11 +14,17 @@ body{
     width: 400px;
     border: thin solid black;
     margin-top: 200px;
+    background-color: silver;
+    padding: 20px;
+    border-radius: 10px;
     
 }
 .display{
     font-size: xx-large;
     background-color: white;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: rgb(125, 140, 115);
 }
 p{
     margin: auto 20px auto auto;
@@ -30,4 +36,17 @@ p{
 button{
     flex: 1;
     font-size: xx-large;
+    border-radius: 10px;
+    margin: 5px;
+    border: thin solid black;
+    color: white;
+}
+.clear, .backspace{
+    background-color: black;
+}
+.number, .decimal{
+    background-color: dimgray;
+}
+.operator, .equals{
+    background-color: darkblue;
 }

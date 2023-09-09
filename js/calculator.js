@@ -38,10 +38,11 @@ function clear(){
     display.textContent = '0';
 }
 
-let num1;
+let num1 = '0';
 let num2;
 let op;
 let equalsPressed = false;
+let isDecimal = false;
 const display = document.querySelector('p');
 const clearbtn = document.querySelector('.clear');
 const backspacebtn = document.querySelector('.backspace');
@@ -49,7 +50,6 @@ const numberbtns = document.querySelectorAll('.number');
 const operatorbtns = document.querySelectorAll('.operator');
 const decimalbtn = document.querySelector('.decimal');
 const equalsbtn = document.querySelector('.equals');
-clear();
 clearbtn.addEventListener('click', clear);
 
 numberbtns.forEach(numberbtn => {
@@ -59,17 +59,17 @@ numberbtns.forEach(numberbtn => {
             equalsPressed = false;
         }
         if(op === undefined){
-            num1 = num1 * 10 + +e.target.textContent;
-            display.textContent = num1;
+            num1 += e.target.textContent;
+            display.textContent = +num1;
         }
         else{
             if(num2 === undefined){
-                num2 = +e.target.textContent;
+                num2 = e.target.textContent;
             }
             else{
-                num2 = num2 * 10 + +e.target.textContent;
+                num2 += e.target.textContent;
             }
-            display.textContent = num2;
+            display.textContent = +num2;
         }
     });
 });
@@ -77,7 +77,7 @@ numberbtns.forEach(numberbtn => {
 operatorbtns.forEach(operatorbtn => {
     operatorbtn.addEventListener('click', e => {
         if(num2 !== undefined){
-            num1 = operate(num1, num2, op);
+            num1 = operate(+num1, +num2, op);
             display.textContent = num1;
             num2 = undefined;
         }
@@ -88,9 +88,24 @@ operatorbtns.forEach(operatorbtn => {
 
 equalsbtn.addEventListener('click', () => {
     if(num2 !== undefined){
-        num1 = operate(num1, num2, op);
+        num1 = operate(+num1, +num2, op);
         display.textContent = num1;
         equalsPressed = true;
         num2 = undefined;
+    }
+});
+
+decimalbtn.addEventListener('click', () => {
+    if(!isDecimal){
+        if(op === undefined){
+            num1 += '.';
+        }
+        else{
+            if(num2 === undefined){
+                num2 = '0';
+                display.textContent = num2;
+            }
+            num2 += '.';
+        }
     }
 });
