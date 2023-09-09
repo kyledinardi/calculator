@@ -4,6 +4,7 @@ body{
     flex-direction: column;
     align-items: center;
     font-family: sans-serif;
+    height: 100%;
     
 }
 .container{
@@ -12,10 +13,11 @@ body{
     height: 500px;
     width: 400px;
     border: thin solid black;
+    margin-top: 200px;
     
 }
 .display{
-    font-size: 48px;
+    font-size: xx-large;
     background-color: white;
 }
 p{
