@@ -17,8 +17,8 @@ function operate(a, b, o){
             break;
         case '/':
             if(b === 0){
-                clear()
-                display.textContent = 'Error: division by zero'
+                clear();
+                display.textContent = 'Error: division by zero';
                 break;
             }
             else{
@@ -97,6 +97,29 @@ function pressDecimal(){
     }
 }
 
+function pressBackspace(){
+    if(op === undefined){
+        num1 = removeLeadingZeroes(num1);
+        if(num1.length === 1){
+            num1 = '0';
+        }
+        else{
+            num1 = num1.slice(0, -1);
+        }
+        display.textContent = num1;
+    }
+    else{
+        num2 = removeLeadingZeroes(num2);
+        if(num2.length === 1){
+            num2 = '0';
+        }
+        else{
+            num2 = num2.slice(0, -1);
+        }
+        display.textContent = num2;
+    }
+}
+
 function removeLeadingZeroes(number){
     number = `${number}`;
     if(number !== '0'){
@@ -122,6 +145,7 @@ const equalsbtn = document.querySelector('.equals');
 clearbtn.addEventListener('click', clear);
 equalsbtn.addEventListener('click', pressEquals);
 decimalbtn.addEventListener('click', pressDecimal);
+backspacebtn.addEventListener('click', pressBackspace);
 
 numberbtns.forEach(numberbtn => {
     numberbtn.addEventListener('click', e => {
