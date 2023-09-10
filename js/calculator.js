@@ -1,33 +1,32 @@
-function add(a, b){
-    return a + b;
-}
-
-function subtract(a, b){
-    return a - b;
-}
-
-function multiply(a, b){
-    return a * b;
-}
-
-function divide(a, b){
-    if(b === 0){
-        return 'Error: division by zero'
-    }
-    return a / b;
-}
-
 function operate(a, b, o){
-    let result;
     switch(o){
         case '+':
-            return add(a, b)
+            num1 = `${a + b}`;
+            display.textContent = num1;
+            num2 = undefined;
+            break;
         case '-':
-            return subtract(a, b)
+            num1 = `${a - b}`;
+            display.textContent = num1;
+            num2 = undefined;
+            break;
         case '*':
-            return multiply(a, b)
+            num1 = `${a * b}`;
+            display.textContent = num1;
+            num2 = undefined;
+            break;
         case '/':
-            return divide(a, b)
+            if(b === 0){
+                clear()
+                display.textContent = 'Error: division by zero'
+                break;
+            }
+            else{
+                num1 = `${a / b}`;
+                display.textContent = num1;
+                num2 = undefined;
+                break;
+            }
     }
 }
 
@@ -36,6 +35,76 @@ function clear(){
     num2 = undefined;
     op = undefined;
     display.textContent = '0';
+    equalsPressed = false;
+    isDecimal = false;
+}
+
+function pressNumber(numberPressed){
+    if(equalsPressed){
+        clear();
+    }
+    if(op === undefined){
+        num1 += numberPressed;
+        display.textContent = +num1;
+    }
+    else{
+        if(num2 === undefined){
+            num2 = numberPressed;
+        }
+        else{
+            num2 += numberPressed;
+        }
+        display.textContent = +num2;
+    }
+}
+
+function pressOperator(operatorPressed){
+    if(num2 !== undefined){
+        operate(+num1, +num2, op);
+    }
+    op = operatorPressed;
+    equalsPressed = false;
+    isDecimal = false;
+}
+
+function pressEquals(){
+    if(num2 !== undefined){
+        operate(+num1, +num2, op);
+        equalsPressed = true;
+        isDecimal = false;
+    }
+}
+
+function pressDecimal(){
+    if(equalsPressed){
+        clear();
+    }
+    if(!isDecimal){
+        if(op === undefined){
+            num1 = removeLeadingZeroes(num1);
+            num1 += '.';
+            display.textContent = num1;
+        }
+        else{
+            if(num2 === undefined){
+                num2 = '0';
+            }
+            num2 = removeLeadingZeroes(num2);
+            num2 += '.';
+            display.textContent = num2;
+        }
+        isDecimal = true;
+    }
+}
+
+function removeLeadingZeroes(number){
+    number = `${number}`;
+    if(number !== '0'){
+        while (number.charAt(0) === '0'){
+            number = number.slice(1);
+        }
+    }
+    return number;
 }
 
 let num1 = '0';
@@ -51,61 +120,17 @@ const operatorbtns = document.querySelectorAll('.operator');
 const decimalbtn = document.querySelector('.decimal');
 const equalsbtn = document.querySelector('.equals');
 clearbtn.addEventListener('click', clear);
+equalsbtn.addEventListener('click', pressEquals);
+decimalbtn.addEventListener('click', pressDecimal);
 
 numberbtns.forEach(numberbtn => {
     numberbtn.addEventListener('click', e => {
-        if(equalsPressed){
-            clear();
-            equalsPressed = false;
-        }
-        if(op === undefined){
-            num1 += e.target.textContent;
-            display.textContent = +num1;
-        }
-        else{
-            if(num2 === undefined){
-                num2 = e.target.textContent;
-            }
-            else{
-                num2 += e.target.textContent;
-            }
-            display.textContent = +num2;
-        }
+        pressNumber(e.target.textContent);
     });
 });
 
 operatorbtns.forEach(operatorbtn => {
     operatorbtn.addEventListener('click', e => {
-        if(num2 !== undefined){
-            num1 = operate(+num1, +num2, op);
-            display.textContent = num1;
-            num2 = undefined;
-        }
-        op = e.target.textContent;
-        equalsPressed = false;
+        pressOperator(e.target.textContent);
     });
-});
-
-equalsbtn.addEventListener('click', () => {
-    if(num2 !== undefined){
-        num1 = operate(+num1, +num2, op);
-        display.textContent = num1;
-        equalsPressed = true;
-        num2 = undefined;
-    }
-});
-
-decimalbtn.addEventListener('click', () => {
-    if(!isDecimal){
-        if(op === undefined){
-            num1 += '.';
-        }
-        else{
-            if(num2 === undefined){
-                num2 = '0';
-                display.textContent = num2;
-            }
-            num2 += '.';
-        }
-    }
 });
