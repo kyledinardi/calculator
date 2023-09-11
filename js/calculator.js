@@ -158,3 +158,32 @@ operatorbtns.forEach(operatorbtn => {
         pressOperator(e.target.textContent);
     });
 });
+
+document.addEventListener('keydown', (e) => {
+    if(!isNaN(+e.key)){
+        pressNumber(e.key);
+    }
+    switch(e.key){
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            e.preventDefault();
+            pressOperator(e.key);
+            break;
+        case '.':
+            pressDecimal();
+            break;
+        case 'Backspace':
+            pressBackspace();
+            break;
+        case '=':
+        case 'Enter':
+            pressEquals();
+            break;
+        case 'Escape':
+        case 'Delete':
+            clear();
+            break;
+    }
+});
