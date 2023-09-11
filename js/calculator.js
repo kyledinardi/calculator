@@ -108,6 +108,9 @@ function pressBackspace(){
         }
         display.textContent = num1;
     }
+    else if(num2 === undefined){
+        clear();
+    }
     else{
         num2 = removeLeadingZeroes(num2);
         if(num2.length === 1){
