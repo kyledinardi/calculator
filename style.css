@@ -13,7 +13,7 @@ body{
     height: 500px;
     width: 400px;
     border: thin solid black;
-    background-color: silver;
+    background-color: blue;
     padding: 20px;
     border-radius: 10px;
     
@@ -21,9 +21,11 @@ body{
 .display{
     font-size: xx-large;
     background-color: white;
-    margin: 5px;
+    margin: 0 5px 15px;
     border-radius: 10px;
     background-color: rgb(125, 140, 115);
+    padding: 0 10px;
+    overflow: hidden;
 }
 p{
     margin: auto 20px auto auto;
@@ -41,11 +43,12 @@ button{
     color: white;
 }
 .clear, .backspace{
-    background-color: black;
+    background-color: red;
 }
 .number, .decimal{
-    background-color: dimgray;
+    background-color: white;
+    color: black;
 }
 .operator, .equals{
-    background-color: darkblue;
+    background-color: red;
 }

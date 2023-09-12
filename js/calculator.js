@@ -1,33 +1,28 @@
 function operate(a, b, o){
+    display.textContent = `${a} ${o} ${b} = `;
     switch(o){
         case '+':
             num1 = `${a + b}`;
-            display.textContent = num1;
-            num2 = undefined;
             break;
         case '-':
             num1 = `${a - b}`;
-            display.textContent = num1;
-            num2 = undefined;
             break;
         case '*':
             num1 = `${a * b}`;
-            display.textContent = num1;
-            num2 = undefined;
             break;
         case '/':
             if(b === 0){
                 clear();
                 display.textContent = 'Error: division by zero';
-                break;
+                return;
             }
             else{
                 num1 = `${a / b}`;
-                display.textContent = num1;
-                num2 = undefined;
                 break;
             }
     }
+    num2 = undefined;
+    display.textContent += num1;
 }
 
 function clear(){
@@ -51,11 +46,12 @@ function pressNumber(numberPressed){
     else{
         if(num2 === undefined){
             num2 = numberPressed;
+
         }
         else{
             num2 += numberPressed;
         }
-        display.textContent = num2;
+        display.textContent += num2.slice(-1);
     }
 }
 
@@ -64,6 +60,7 @@ function pressOperator(operatorPressed){
         operate(+num1, +num2, op);
     }
     op = operatorPressed;
+    display.textContent += ` ${op} `
     equalsPressed = false;
     isDecimal = false;
 }
@@ -88,9 +85,10 @@ function pressDecimal(){
         else{
             if(num2 === undefined){
                 num2 = '0';
+                display.textContent += '0';
             }
             num2 += '.';
-            display.textContent = num2;
+            display.textContent += '.';
         }
         isDecimal = true;
     }
