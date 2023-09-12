@@ -7,10 +7,10 @@ function operate(a, b, o){
         case '-':
             num1 = `${a - b}`;
             break;
-        case '*':
+        case '×':
             num1 = `${a * b}`;
             break;
-        case '/':
+        case '÷':
             if(b === 0){
                 clear();
                 display.textContent = 'Error: division by zero';
@@ -131,7 +131,7 @@ let num2;
 let op;
 let equalsPressed = false;
 let isDecimal = false;
-const ops = ['+', '-', '*', '/']
+const ops = ['+', '-', '×', '÷']
 const display = document.querySelector('p');
 const clearbtn = document.querySelector('.clear');
 const backspacebtn = document.querySelector('.backspace');
