@@ -42,13 +42,11 @@ button{
     border: thin solid black;
     color: white;
 }
-.clear, .backspace{
-    background-color: red;
+.clear, .backspace, .operator, .equals{
+    background-color: rgb(192, 0, 0);
+    color: white;
 }
 .number, .decimal{
     background-color: white;
     color: black;
-}
-.operator, .equals{
-    background-color: red;
 }
