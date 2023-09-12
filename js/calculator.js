@@ -22,6 +22,7 @@ function operate(a, b, o){
             }
     }
     num2 = undefined;
+    num1 = `${Math.round(+num1 *100000000)/100000000}`
     display.textContent += num1;
 }
 
@@ -60,6 +61,9 @@ function pressOperator(operatorPressed){
         operate(+num1, +num2, op);
     }
     op = operatorPressed;
+    if(ops.includes(display.textContent.slice(-2, -1))){
+        display.textContent = display.textContent.slice(0, -3);
+    }
     display.textContent += ` ${op} `
     equalsPressed = false;
     isDecimal = false;
@@ -127,6 +131,7 @@ let num2;
 let op;
 let equalsPressed = false;
 let isDecimal = false;
+const ops = ['+', '-', '*', '/']
 const display = document.querySelector('p');
 const clearbtn = document.querySelector('.clear');
 const backspacebtn = document.querySelector('.backspace');
