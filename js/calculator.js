@@ -45,7 +45,8 @@ function pressNumber(numberPressed){
     }
     if(op === undefined){
         num1 += numberPressed;
-        display.textContent = +num1;
+        num1 = `${+num1}`;
+        display.textContent = num1;
     }
     else{
         if(num2 === undefined){
@@ -54,7 +55,7 @@ function pressNumber(numberPressed){
         else{
             num2 += numberPressed;
         }
-        display.textContent = +num2;
+        display.textContent = num2;
     }
 }
 
@@ -81,7 +82,6 @@ function pressDecimal(){
     }
     if(!isDecimal){
         if(op === undefined){
-            num1 = removeLeadingZeroes(num1);
             num1 += '.';
             display.textContent = num1;
         }
@@ -89,7 +89,6 @@ function pressDecimal(){
             if(num2 === undefined){
                 num2 = '0';
             }
-            num2 = removeLeadingZeroes(num2);
             num2 += '.';
             display.textContent = num2;
         }
@@ -99,7 +98,6 @@ function pressDecimal(){
 
 function pressBackspace(){
     if(op === undefined){
-        num1 = removeLeadingZeroes(num1);
         if(num1.length === 1){
             num1 = '0';
         }
@@ -112,7 +110,6 @@ function pressBackspace(){
         clear();
     }
     else{
-        num2 = removeLeadingZeroes(num2);
         if(num2.length === 1){
             num2 = '0';
         }
@@ -121,16 +118,6 @@ function pressBackspace(){
         }
         display.textContent = num2;
     }
-}
-
-function removeLeadingZeroes(number){
-    number = `${number}`;
-    if(number !== '0'){
-        while (number.charAt(0) === '0'){
-            number = number.slice(1);
-        }
-    }
-    return number;
 }
 
 let num1 = '0';
