@@ -95,7 +95,10 @@ function pressDecimal(){
 }
 
 function pressBackspace(){
-    if(op === undefined){
+    if(equalsPressed){
+        clear();
+    }
+    else if(op === undefined){
         if(num1.length === 1){
             num1 = '0';
         }
@@ -105,16 +108,17 @@ function pressBackspace(){
         display.textContent = num1;
     }
     else if(num2 === undefined){
-        clear();
+        op = undefined;
+        display.textContent = display.textContent.slice(0, -3);;
     }
     else{
         if(num2.length === 1){
-            num2 = '0';
+            num2 = undefined;
         }
         else{
             num2 = num2.slice(0, -1);
         }
-        display.textContent = num2;
+        display.textContent = display.textContent.slice(0, -1);
     }
 }
 
