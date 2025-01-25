@@ -1,0 +1,16 @@
+{
+  "name": "odin-book-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node --watch ./app.js",
+    "reset": "npx prisma migrate reset && node seeds.js && npm start",
+    "migrate": "npx prisma migrate reset && npx prisma migrate dev && node seeds.js && npm start"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1"
+  }
+}
