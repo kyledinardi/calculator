@@ -3,12 +3,14 @@ let num2;
 let op;
 let equalsPressed = false;
 let isDecimal = false;
+
 const ops = ['+', '-', '×', '÷'];
-const display = document.querySelector('.display span');
-const clearbtn = document.querySelector('.clear');
-const backspacebtn = document.querySelector('.backspace');
+const display = document.querySelector('.display p');
 const numberbtns = document.querySelectorAll('.number');
 const operatorbtns = document.querySelectorAll('.operator');
+
+const clearbtn = document.querySelector('.clear');
+const backspacebtn = document.querySelector('.backspace');
 const decimalbtn = document.querySelector('.decimal');
 const equalsbtn = document.querySelector('.equals');
 
@@ -23,6 +25,7 @@ function clear() {
 
 function operate(a, b, o) {
   display.textContent = `${a} ${o} ${b} = `;
+  
   switch (o) {
     case '+':
       num1 = `${a + b}`;

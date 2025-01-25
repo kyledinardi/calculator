@@ -1,52 +1,119 @@
-body{
-    background-color: gray;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: sans-serif;
-    height: 100%;
-    
+@font-face {
+  font-family: 'digital-7 (mono)';
+  src: url('./fonts/digital-7\ \(mono\).ttf');
 }
-.container{
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-    width: 400px;
-    border: thin solid black;
-    background-color: blue;
-    padding: 20px;
-    border-radius: 10px;
-    
+
+* {
+  box-sizing: border-box;
 }
-.display{
-    font-size: 2rem;
-    background-color: white;
-    margin: 0 5px 15px;
-    border-radius: 10px;
-    background-color: rgb(125, 140, 115);
-    padding: 0 10px;
-    overflow: hidden;
+
+body {
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  margin: 0;
 }
-p{
-    margin: auto 20px auto auto;
+
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.display, .row{
-    display: flex;
-    flex: 1;
+
+.calculator-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
-button{
-    flex: 1;
-    font-size: 2rem;
-    border-radius: 10px;
-    margin: 5px;
-    border: thin solid black;
-    color: white;
+
+.calculator {
+  width: 320px;
+  border: 1px solid black;
+  background-color: #0464a1;
+  border-radius: 10px;
 }
-.clear, .backspace, .operator, .equals{
-    background-color: rgb(192, 0, 0);
-    color: white;
+
+.display {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 10px;
+  margin: 30px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #c9d3ca;
 }
-.number, .decimal{
-    background-color: white;
-    color: black;
+
+.display p {
+  margin: 0;
+  font-family: 'digital-7 (mono)';
+  font-size: 2rem;
+  min-height: 62px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px 10px;
+}
+
+.row {
+  display: flex;
+  height: 40px;
+  gap: 10px;
+}
+
+button {
+  flex: 1;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  color: white;
+  cursor: pointer;
+}
+
+.clear,
+.backspace,
+.operator,
+.equals {
+  background-color: #c72139;
+  color: white;
+}
+
+.number,
+.decimal {
+  background-color: white;
+  color: black;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.2rem;
+}
+
+footer a {
+  color: black;
+  text-decoration: none;
+}
+
+.logo-link {
+  height: 24px;
+}
+
+.logo {
+  height: 24px;
 }

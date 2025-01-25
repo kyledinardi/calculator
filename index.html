@@ -1,46 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="js/calculator.js" defer></script>
-</head>
-<body>
-    <h1>Calculator</h1>
-    <h2>Now with keyboard functionality</h2>
-    <div class="container">
-        <div class="display"><p>0</p></div>
-        <div class="row">
-            <button class="clear">Clear</button>
-            <button class="backspace">Backspace</button>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="calculator-container">
+        <div class="calculator">
+          <div class="display"><p>0</p></div>
+          <div class="buttons">
+            <div class="row">
+              <button class="clear">Clear</button>
+              <button class="backspace">Backspace</button>
+            </div>
+            <div class="row">
+              <button class="number">7</button>
+              <button class="number">8</button>
+              <button class="number">9</button>
+              <button class="operator">÷</button>
+            </div>
+            <div class="row">
+              <button class="number">4</button>
+              <button class="number">5</button>
+              <button class="number">6</button>
+              <button class="operator">×</button>
+            </div>
+            <div class="row">
+              <button class="number">1</button>
+              <button class="number">2</button>
+              <button class="number">3</button>
+              <button class="operator">-</button>
+            </div>
+            <div class="row">
+              <button class="number">0</button>
+              <button class="decimal">.</button>
+              <button class="equals">=</button>
+              <button class="operator">+</button>
+            </div>
+          </div>
         </div>
-        <div class="row">
-            <button class="number">7</button>
-            <button class="number">8</button>
-            <button class="number">9</button>
-            <button class="operator">÷</button>
-        </div>
-        <div class="row">
-            <button class="number">4</button>
-            <button class="number">5</button>
-            <button class="number">6</button>
-            <button class="operator">×</button>
-        </div>
-        <div class="row">
-            <button class="number">1</button>
-            <button class="number">2</button>
-            <button class="number">3</button>
-            <button class="operator">-</button>
-        </div>
-        <div class="row">
-            <button class="number">0</button>
-            <button class="decimal">.</button>
-            <button class="equals">=</button>
-            <button class="operator">+</button>
-        </div>
+      </div>
+      <footer>
+        <a
+          href="https://kyledinardi.github.io/odin-homepage/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <p>© 2023 Kyle Dinardi</p>
+        </a>
+        <a
+          href="https://github.com/kyledinardi"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="logo-link"
+        >
+          <img class="logo" src="./img/github-mark.svg" alt="GitHub logo" />
+        </a>
+      </footer>
     </div>
-</body>
+  </body>
 </html>
