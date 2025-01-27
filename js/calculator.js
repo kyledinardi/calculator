@@ -1,118 +1,120 @@
-let num1 = '0';
-let num2;
-let op;
-let equalsPressed = false;
+let firstValue = '0';
+let secondValue;
+let operator;
+let isEqualsPressed = false;
 let isDecimal = false;
 
-const ops = ['+', '-', '×', '÷'];
+const operators = ['+', '-', '×', '÷'];
 const display = document.querySelector('.display p');
-const numberbtns = document.querySelectorAll('.number');
-const operatorbtns = document.querySelectorAll('.operator');
+const numberbuttons = document.querySelectorAll('.number');
+const operatorbuttons = document.querySelectorAll('.operator');
 
-const clearbtn = document.querySelector('.clear');
-const backspacebtn = document.querySelector('.backspace');
-const decimalbtn = document.querySelector('.decimal');
-const equalsbtn = document.querySelector('.equals');
+const clearbutton = document.querySelector('.clear');
+const backspacebutton = document.querySelector('.backspace');
+const decimalbutton = document.querySelector('.decimal');
+const equalsbutton = document.querySelector('.equals');
 
-function clear() {
-  num1 = 0;
-  num2 = undefined;
-  op = undefined;
+function resetCalculator() {
+  firstValue = 0;
+  secondValue = undefined;
+  operator = undefined;
   display.textContent = '0';
-  equalsPressed = false;
+  isEqualsPressed = false;
   isDecimal = false;
 }
 
-function operate(a, b, o) {
-  display.textContent = `${a} ${o} ${b} = `;
-  
-  switch (o) {
+function operate(a, b, opr) {
+  display.textContent = `${a} ${opr} ${b} = `;
+
+  switch (opr) {
     case '+':
-      num1 = `${a + b}`;
+      firstValue = `${a + b}`;
       break;
 
     case '-':
-      num1 = `${a - b}`;
+      firstValue = `${a - b}`;
       break;
 
     case '×':
-      num1 = `${a * b}`;
+      firstValue = `${a * b}`;
       break;
 
     case '÷':
       if (b === 0) {
-        clear();
+        resetCalculator();
         display.textContent = 'Error: division by zero';
         return;
       }
 
-      num1 = `${a / b}`;
+      firstValue = `${a / b}`;
       break;
 
     default:
   }
 
-  num2 = undefined;
-  num1 = `${Math.round(+num1 * 100000000) / 100000000}`;
-  display.textContent += num1;
+  secondValue = undefined;
+  firstValue = `${Math.round(+firstValue * 1_000_000_000) / 1_000_000_000}`;
+  display.textContent += firstValue;
 }
 
 function pressNumber(numberPressed) {
-  if (equalsPressed) {
-    clear();
+  if (isEqualsPressed) {
+    resetCalculator();
   }
 
-  if (op === undefined) {
-    num1 += numberPressed;
-    num1 = `${+num1}`;
-    display.textContent = num1;
+  if (operator === undefined) {
+    firstValue += numberPressed;
+    firstValue = `${+firstValue}`;
+    display.textContent = firstValue;
   } else {
-    if (num2 === undefined) {
-      num2 = numberPressed;
+    if (secondValue === undefined) {
+      secondValue = numberPressed;
     } else {
-      num2 += numberPressed;
+      secondValue += numberPressed;
     }
-    display.textContent += num2.slice(-1);
+    display.textContent += secondValue.slice(-1);
   }
 }
 
 function pressOperator(operatorPressed) {
-  if (num2 !== undefined) {
-    operate(+num1, +num2, op);
+  if (secondValue !== undefined) {
+    operate(+firstValue, +secondValue, operator);
   }
-  op = operatorPressed;
-  if (ops.includes(display.textContent.slice(-2, -1))) {
+
+  if (operators.includes(display.textContent.slice(-2, -1))) {
     display.textContent = display.textContent.slice(0, -3);
   }
-  display.textContent += ` ${op} `;
-  equalsPressed = false;
+
+  operator = operatorPressed;
+  display.textContent += ` ${operator} `;
+  isEqualsPressed = false;
   isDecimal = false;
 }
 
 function pressEquals() {
-  if (num2 !== undefined) {
-    operate(+num1, +num2, op);
-    equalsPressed = true;
+  if (secondValue !== undefined) {
+    operate(+firstValue, +secondValue, operator);
+    isEqualsPressed = true;
     isDecimal = false;
   }
 }
 
 function pressDecimal() {
-  if (equalsPressed) {
-    clear();
+  if (isEqualsPressed) {
+    resetCalculator();
   }
 
   if (!isDecimal) {
-    if (op === undefined) {
-      num1 += '.';
-      display.textContent = num1;
+    if (operator === undefined) {
+      firstValue += '.';
+      display.textContent = firstValue;
     } else {
-      if (num2 === undefined) {
-        num2 = '0';
+      if (secondValue === undefined) {
+        secondValue = '0';
         display.textContent += '0';
       }
 
-      num2 += '.';
+      secondValue += '.';
       display.textContent += '.';
     }
 
@@ -121,46 +123,44 @@ function pressDecimal() {
 }
 
 function pressBackspace() {
-  if (equalsPressed) {
-    clear();
-  } else if (op === undefined) {
-    if (num1.length === 1) {
-      num1 = '0';
+  if (isEqualsPressed) {
+    resetCalculator();
+  } else if (operator === undefined) {
+    if (firstValue.length === 1) {
+      firstValue = '0';
     } else {
-      num1 = num1.slice(0, -1);
+      firstValue = firstValue.slice(0, -1);
     }
 
-    display.textContent = num1;
-  } else if (num2 === undefined) {
-    op = undefined;
+    display.textContent = firstValue;
+  } else if (secondValue === undefined) {
+    operator = undefined;
     display.textContent = display.textContent.slice(0, -3);
+  } else if (secondValue.length === 1) {
+    secondValue = undefined;
   } else {
-    if (num2.length === 1) {
-      num2 = undefined;
-    } else {
-      num2 = num2.slice(0, -1);
-    }
-
-    display.textContent = display.textContent.slice(0, -1);
+    secondValue = secondValue.slice(0, -1);
   }
+
+  display.textContent = display.textContent.slice(0, -1);
 }
 
-clearbtn.addEventListener('click', clear);
-equalsbtn.addEventListener('click', pressEquals);
-decimalbtn.addEventListener('click', pressDecimal);
-backspacebtn.addEventListener('click', pressBackspace);
+clearbutton.addEventListener('click', resetCalculator);
+equalsbutton.addEventListener('click', pressEquals);
+decimalbutton.addEventListener('click', pressDecimal);
+backspacebutton.addEventListener('click', pressBackspace);
 
-numberbtns.forEach((numberbtn) => {
-  numberbtn.addEventListener('click', (e) => {
+numberbuttons.forEach((numberbutton) =>
+  numberbutton.addEventListener('click', (e) => {
     pressNumber(e.target.textContent);
-  });
-});
+  }),
+);
 
-operatorbtns.forEach((operatorbtn) => {
-  operatorbtn.addEventListener('click', (e) => {
+operatorbuttons.forEach((operatorbutton) =>
+  operatorbutton.addEventListener('click', (e) => {
     pressOperator(e.target.textContent);
-  });
-});
+  }),
+);
 
 document.addEventListener('keydown', (e) => {
   if (!Number.isNaN(+e.key)) {
@@ -191,7 +191,7 @@ document.addEventListener('keydown', (e) => {
 
     case 'Escape':
     case 'Delete':
-      clear();
+      resetCalculator();
       break;
 
     default:

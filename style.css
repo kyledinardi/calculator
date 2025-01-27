@@ -54,9 +54,10 @@ body {
   margin: 0;
   font-family: 'digital-7 (mono)';
   font-size: 2rem;
-  min-height: 62px;
+  min-height: 74px;
   max-width: 100%;
   overflow-wrap: break-word;
+  line-height: 37px;
 }
 
 .buttons {
