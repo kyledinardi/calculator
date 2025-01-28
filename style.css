@@ -58,6 +58,7 @@ body {
   max-width: 100%;
   overflow-wrap: break-word;
   line-height: 37px;
+  text-align: right;
 }
 
 .buttons {

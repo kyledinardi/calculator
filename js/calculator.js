@@ -56,8 +56,10 @@ function operate(a, b, opr) {
     default:
   }
 
+  const decimalPlaces = 16 - firstValue.split('.')[0].length - 1;
+  const roundedFirstValue = new Decimal(firstValue).toFixed(decimalPlaces);
+  display.textContent += new Decimal(roundedFirstValue);
   secondValue = undefined;
-  display.textContent += firstValue;
 }
 
 function pressNumber(numberPressed) {
@@ -67,7 +69,7 @@ function pressNumber(numberPressed) {
 
   if (operator === undefined) {
     firstValue += numberPressed;
-    firstValue = `${Number(firstValue, 10)}`;
+    firstValue = `${new Decimal(firstValue, 10)}`;
     display.textContent = firstValue;
   } else {
     if (secondValue === '0') {
@@ -78,7 +80,7 @@ function pressNumber(numberPressed) {
     } else {
       secondValue += numberPressed;
     }
-    
+
     display.textContent += numberPressed;
   }
 }
