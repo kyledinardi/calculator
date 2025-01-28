@@ -36,17 +36,14 @@ function operate(a, b, opr) {
     case '+':
       result = decimalA.plus(decimalB);
       break;
-
     case '-':
       result = decimalA.minus(decimalB);
       break;
-
     case '×':
       result = decimalA.times(decimalB);
       break;
-
     case '÷':
-      if (b === 0) {
+      if (`${b}` === '0') {
         resetCalculator();
         display.textContent = 'Error: division by zero';
         return;
@@ -71,11 +68,11 @@ function pressNumber(numberPressed) {
   if (operator === undefined) {
     if (firstValue === '0') {
       firstValue = numberPressed;
-      display.textContent = firstValue;
     } else {
       firstValue += numberPressed;
-      display.textContent = firstValue;
     }
+
+    display.textContent = firstValue;
   } else {
     if (secondValue === '0') {
       secondValue = numberPressed;
@@ -139,14 +136,17 @@ function pressDecimal() {
 function pressBackspace() {
   if (isEqualsPressed) {
     resetCalculator();
-  } else if (operator === undefined) {
+    return;
+  }
+
+  if (operator === undefined) {
     if (firstValue.length === 1) {
-      firstValue = '0';
-    } else {
-      firstValue = firstValue.slice(0, -1);
+      resetCalculator();
+      return;
     }
 
-    display.textContent = firstValue;
+    firstValue = firstValue.slice(0, -1);
+    display.textContent = display.textContent.slice(0, -1);
   } else if (secondValue === undefined) {
     operator = undefined;
     display.textContent = display.textContent.slice(0, -3);
@@ -155,6 +155,16 @@ function pressBackspace() {
       secondValue = undefined;
     } else {
       secondValue = secondValue.slice(0, -1);
+    }
+
+    display.textContent = display.textContent.slice(0, -1);
+  }
+
+  if (display.textContent.endsWith('.')) {
+    if (firstValue.endsWith('.')) {
+      firstValue = firstValue.slice(0, -1);
+    } else if (secondValue.endsWith('.')) {
+      secondValue = firstValue.slice(0, -1);
     }
 
     display.textContent = display.textContent.slice(0, -1);
@@ -186,30 +196,28 @@ document.addEventListener('keydown', (e) => {
   switch (e.key) {
     case '+':
     case '-':
+      pressOperator(e.key);
+      break;
     case '*':
     case '/':
       e.preventDefault();
-      pressOperator(e.key);
+      pressOperator(e.key === '*' ? operators[2] : operators[3]);
       break;
-
     case '.':
       pressDecimal();
       break;
-
     case 'Backspace':
       pressBackspace();
       break;
-
     case '=':
     case 'Enter':
+      e.preventDefault();
       pressEquals();
       break;
-
     case 'Escape':
     case 'Delete':
       resetCalculator();
       break;
-
     default:
   }
 });
