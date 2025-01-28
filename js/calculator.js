@@ -28,20 +28,21 @@ function resetCalculator() {
 
 function operate(a, b, opr) {
   display.textContent = `${a} ${opr} ${b} = `;
-  const decimalA = new Decimal(`${a}`);
-  const decimalB = new Decimal(`${b}`);
+  const decimalA = new Decimal(a);
+  const decimalB = new Decimal(b);
+  let result;
 
   switch (opr) {
     case '+':
-      firstValue = `${decimalA.plus(decimalB)}`;
+      result = decimalA.plus(decimalB);
       break;
 
     case '-':
-      firstValue = `${decimalA.minus(decimalB)}`;
+      result = decimalA.minus(decimalB);
       break;
 
     case '×':
-      firstValue = `${decimalA.times(decimalB)}`;
+      result = decimalA.times(decimalB);
       break;
 
     case '÷':
@@ -51,14 +52,14 @@ function operate(a, b, opr) {
         return;
       }
 
-      firstValue = `${decimalA.dividedBy(decimalB)}`;
+      result = decimalA.dividedBy(decimalB);
       break;
     default:
   }
 
-  const decimalPlaces = 16 - firstValue.split('.')[0].length - 1;
-  const roundedFirstValue = new Decimal(firstValue).toFixed(decimalPlaces);
-  display.textContent += new Decimal(roundedFirstValue);
+  const roundedResult = new Decimal(result.toFixed(10));
+  display.textContent += roundedResult;
+  firstValue = `${result}`;
   secondValue = undefined;
 }
 
@@ -68,9 +69,13 @@ function pressNumber(numberPressed) {
   }
 
   if (operator === undefined) {
-    firstValue += numberPressed;
-    firstValue = `${new Decimal(firstValue, 10)}`;
-    display.textContent = firstValue;
+    if (firstValue === '0') {
+      firstValue = numberPressed;
+      display.textContent = firstValue;
+    } else {
+      firstValue += numberPressed;
+      display.textContent = firstValue;
+    }
   } else {
     if (secondValue === '0') {
       secondValue = numberPressed;
@@ -90,7 +95,7 @@ function pressOperator(operatorPressed) {
     operate(firstValue, secondValue, operator);
   }
 
-  if (operators.includes(display.textContent.slice(-2, -1))) {
+  if (operators.includes(display.textContent.trim().slice(-1))) {
     display.textContent = display.textContent.slice(0, -3);
   }
 
