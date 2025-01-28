@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/extensions
+import { Decimal } from '../helpers/mjs/decimal.mjs';
+
 let firstValue = '0';
 let secondValue;
 let operator;
@@ -15,28 +18,30 @@ const decimalbutton = document.querySelector('.decimal');
 const equalsbutton = document.querySelector('.equals');
 
 function resetCalculator() {
-  firstValue = 0;
+  display.textContent = '0';
+  firstValue = '0';
   secondValue = undefined;
   operator = undefined;
-  display.textContent = '0';
   isEqualsPressed = false;
   isDecimal = false;
 }
 
 function operate(a, b, opr) {
   display.textContent = `${a} ${opr} ${b} = `;
+  const decimalA = new Decimal(`${a}`);
+  const decimalB = new Decimal(`${b}`);
 
   switch (opr) {
     case '+':
-      firstValue = `${a + b}`;
+      firstValue = `${decimalA.plus(decimalB)}`;
       break;
 
     case '-':
-      firstValue = `${a - b}`;
+      firstValue = `${decimalA.minus(decimalB)}`;
       break;
 
     case '×':
-      firstValue = `${a * b}`;
+      firstValue = `${decimalA.times(decimalB)}`;
       break;
 
     case '÷':
@@ -46,14 +51,12 @@ function operate(a, b, opr) {
         return;
       }
 
-      firstValue = `${a / b}`;
+      firstValue = `${decimalA.dividedBy(decimalB)}`;
       break;
-
     default:
   }
 
   secondValue = undefined;
-  firstValue = `${Math.round(+firstValue * 1_000_000_000) / 1_000_000_000}`;
   display.textContent += firstValue;
 }
 
@@ -64,21 +67,25 @@ function pressNumber(numberPressed) {
 
   if (operator === undefined) {
     firstValue += numberPressed;
-    firstValue = `${+firstValue}`;
+    firstValue = `${Number(firstValue, 10)}`;
     display.textContent = firstValue;
   } else {
-    if (secondValue === undefined) {
+    if (secondValue === '0') {
+      secondValue = numberPressed;
+      display.textContent = display.textContent.slice(0, -1);
+    } else if (secondValue === undefined) {
       secondValue = numberPressed;
     } else {
       secondValue += numberPressed;
     }
-    display.textContent += secondValue.slice(-1);
+    
+    display.textContent += numberPressed;
   }
 }
 
 function pressOperator(operatorPressed) {
   if (secondValue !== undefined) {
-    operate(+firstValue, +secondValue, operator);
+    operate(firstValue, secondValue, operator);
   }
 
   if (operators.includes(display.textContent.slice(-2, -1))) {
@@ -93,7 +100,7 @@ function pressOperator(operatorPressed) {
 
 function pressEquals() {
   if (secondValue !== undefined) {
-    operate(+firstValue, +secondValue, operator);
+    operate(firstValue, secondValue, operator);
     isEqualsPressed = true;
     isDecimal = false;
   }
@@ -136,13 +143,15 @@ function pressBackspace() {
   } else if (secondValue === undefined) {
     operator = undefined;
     display.textContent = display.textContent.slice(0, -3);
-  } else if (secondValue.length === 1) {
-    secondValue = undefined;
   } else {
-    secondValue = secondValue.slice(0, -1);
-  }
+    if (secondValue.length === 1) {
+      secondValue = undefined;
+    } else {
+      secondValue = secondValue.slice(0, -1);
+    }
 
-  display.textContent = display.textContent.slice(0, -1);
+    display.textContent = display.textContent.slice(0, -1);
+  }
 }
 
 clearbutton.addEventListener('click', resetCalculator);
@@ -163,7 +172,7 @@ operatorbuttons.forEach((operatorbutton) =>
 );
 
 document.addEventListener('keydown', (e) => {
-  if (!Number.isNaN(+e.key)) {
+  if (!Number.isNaN(parseInt(e.key, 10))) {
     pressNumber(e.key);
   }
 
