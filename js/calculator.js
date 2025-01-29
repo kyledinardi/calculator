@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/extensions
-import { Decimal } from './decimal.mjs';
-
 let firstValue = '0';
 let secondValue;
 let operator;
